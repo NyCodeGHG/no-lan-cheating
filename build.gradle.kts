@@ -25,6 +25,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings("net.fabricmc:yarn:$yarnMappingsVersion")
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
+    modRuntime("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
 }
 
 tasks {
@@ -36,10 +37,11 @@ tasks {
                 )
             }
         }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        if (JavaVersion.current().isJava9Compatible) {
+        if (jvmTarget >= 9) {
             options.release.set(jvmTarget)
         }
     }
