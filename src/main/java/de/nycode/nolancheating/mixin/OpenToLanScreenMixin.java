@@ -1,5 +1,6 @@
 package de.nycode.nolancheating.mixin;
 
+import de.nycode.nolancheating.NoLanCheating;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.OpenToLanScreen;
@@ -49,6 +50,11 @@ public abstract class OpenToLanScreenMixin extends Screen {
 
         // Check if cheats are enabled in this world.
         widget.active = areCheatsEnabled();
+
+        if (!widget.active && client != null && client.player != null) {
+            client.player.incrementStat(NoLanCheating.ATTEMPTS_TO_CHEAT);
+        }
+
         return widget;
     }
 
