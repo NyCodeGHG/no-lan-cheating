@@ -9,6 +9,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     maven("https://maven.fabricmc.net")
+    maven("https://minecraft.guntram.de/maven/")
 }
 
 val jvmTarget = 8
@@ -26,6 +27,8 @@ dependencies {
     mappings("net.fabricmc:yarn:$yarnMappingsVersion")
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
     modRuntime("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
+    modImplementation("de.guntram.mcmod:crowdin-translate:1.2")
+    include("de.guntram.mcmod:crowdin-translate:1.2")
 }
 
 tasks {
