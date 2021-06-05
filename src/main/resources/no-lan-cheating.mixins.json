@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.nycode.nolancheating.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "OpenToLanScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
