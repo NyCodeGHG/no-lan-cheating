@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "no-lan-cheating",
+  "version": "${version}",
+  "name": "No Lan Cheating",
+  "description": "Prevents you from cheating with configurable ways of disabling the lan world cheat button.",
+  "authors": [
+    "NyCode"
+  ],
+  "contact": {
+    "sources": "https://github.com/NyCodeGHG/no-lan-cheating",
+    "issues": "https://github.com/NyCodeGHG/no-lan-cheating/issues",
+    "homepage": "https://nycode.de",
+    "email": "mods@nycode.de"
+  },
+  "license": "AGPL-3.0",
+  "icon": "assets/no-lan-cheating/icon.png",
+  "environment": "client",
+  "mixins": [
+    "no-lan-cheating.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">0.7.4",
+    "minecraft": "1.16.x"
+  }
+}
