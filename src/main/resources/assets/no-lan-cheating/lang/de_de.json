@@ -1,3 +1,4 @@
 {
-  "menu.no-lan-cheating.cheating_tooltip": "Versuchst du etwa wieder zu schummeln?"
+  "menu.no-lan-cheating.cheating_tooltip": "Versuchst du etwa wieder zu schummeln?",
+  "stat.no-lan-cheating.attempts_to_cheat": "Versuche zu Schummeln"
 }
