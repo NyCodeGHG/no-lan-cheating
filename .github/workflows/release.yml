@@ -47,6 +47,8 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        env:
+          GITHUB_TAG_NAME: ${{ github.event.release.tag_name }}
 
       - name: Attach Binaries to Release
         uses: svenstaro/upload-release-action@v2
@@ -58,3 +60,6 @@ jobs:
 
       - name: Publish to Modrinth
         run: ./gradlew publishModrinth
+        env:
+          GITHUB_TAG_NAME: ${{ github.event.release.tag_name }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
