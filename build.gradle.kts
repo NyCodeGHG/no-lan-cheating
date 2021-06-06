@@ -27,8 +27,9 @@ dependencies {
     mappings("net.fabricmc:yarn:$yarnMappingsVersion")
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
     modRuntime("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
-    modImplementation("de.guntram.mcmod:crowdin-translate:1.2")
-    include("de.guntram.mcmod:crowdin-translate:1.2")
+    val crowdinTranslateVersion = "1.3+1.16"
+    modImplementation("de.guntram.mcmod:crowdin-translate:$crowdinTranslateVersion")
+    include("de.guntram.mcmod:crowdin-translate:$crowdinTranslateVersion")
 }
 
 tasks {
