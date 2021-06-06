@@ -45,6 +45,9 @@ jobs:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
+      - name: Build with Gradle
+        run: ./gradlew build
+
       - name: Attach Binaries to Release
         uses: svenstaro/upload-release-action@v2
         with:
@@ -54,4 +57,4 @@ jobs:
           file_glob: true
 
       - name: Publish to Modrinth
-        run: ./gradlew build publishModrinth
+        run: ./gradlew publishModrinth
