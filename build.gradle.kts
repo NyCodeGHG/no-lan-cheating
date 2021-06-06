@@ -1,10 +1,10 @@
 plugins {
     id("fabric-loom") version "0.7-SNAPSHOT"
-    `maven-publish`
+    id("com.modrinth.minotaur") version "1.2.1"
 }
 
 group = "de.nycode"
-version = "1.0-SNAPSHOT"
+version = ProjectVersion.version
 
 repositories {
     mavenCentral()
@@ -47,5 +47,14 @@ tasks {
         if (jvmTarget >= 9) {
             options.release.set(jvmTarget)
         }
+    }
+    create<com.modrinth.minotaur.TaskModrinthUpload>("publishModrinth") {
+        token = System.getenv("MODRINTH_TOKEN") ?: findProperty("modrinthToken").toString()
+        projectId = "i5JxLPkx"
+        versionNumber = project.version.toString()
+        uploadFile = remapJar.get().outputs.files.asPath
+        addGameVersion(minecraftVersion)
+        // Add Fabric API as dependency
+        addDependency("J6yPQoBy", com.modrinth.minotaur.request.Dependency.DependencyType.REQUIRED)
     }
 }

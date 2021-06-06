@@ -23,5 +23,13 @@
     "fabricloader": ">0.7.4",
     "minecraft": "1.16.x",
     "fabric": "*"
+  },
+  "entrypoints": {
+    "client": [
+      "de.nycode.nolancheating.NoLanCheatingClientInitializer"
+    ],
+    "main": [
+      "de.nycode.nolancheating.NoLanCheating"
+    ]
   }
 }
