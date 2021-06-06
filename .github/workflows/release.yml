@@ -46,11 +46,12 @@ jobs:
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
       - name: Attach Binaries to Release
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          args: 'no-lan-cheating-*.jar'
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/libs/*.jar
+          tag: ${{ github.ref }}
+          file_glob: true
 
       - name: Publish to Modrinth
         run: ./gradlew build publishModrinth
