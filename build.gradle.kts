@@ -41,7 +41,7 @@ tasks {
                 )
             }
         }
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
