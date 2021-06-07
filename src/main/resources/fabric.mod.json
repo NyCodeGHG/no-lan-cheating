@@ -20,9 +20,12 @@
     "no-lan-cheating.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">0.7.4",
+    "fabricloader": ">=0.7.4",
     "minecraft": "1.16.x",
     "fabric": "*"
+  },
+  "suggests": {
+    "letsencryptcraft": "*"
   },
   "entrypoints": {
     "client": [
