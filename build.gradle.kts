@@ -9,7 +9,6 @@ version = ProjectVersion.version
 repositories {
     mavenCentral()
     maven("https://maven.fabricmc.net")
-    maven("https://minecraft.guntram.de/maven/")
 }
 
 val jvmTarget = 8
@@ -17,7 +16,6 @@ val jvmTarget = 8
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(jvmTarget))
-        vendor.set(JvmVendorSpec.ADOPTOPENJDK)
     }
     withSourcesJar()
 }
@@ -27,9 +25,6 @@ dependencies {
     mappings("net.fabricmc:yarn:$yarnMappingsVersion")
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
     modRuntime("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
-    val crowdinTranslateVersion = "1.3+1.16"
-    modImplementation("de.guntram.mcmod:crowdin-translate:$crowdinTranslateVersion")
-    include("de.guntram.mcmod:crowdin-translate:$crowdinTranslateVersion")
 }
 
 tasks {
