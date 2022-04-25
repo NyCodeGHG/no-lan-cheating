@@ -5,6 +5,6 @@ object ProjectVersion {
             return when {
                 !tag.isNullOrBlank() -> tag
                 else -> "undefined"
-            } + "-$minecraftVersion"
+            } + "+$minecraftVersion"
         }
 }
