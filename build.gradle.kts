@@ -44,9 +44,6 @@ tasks {
             options.release.set(jvmTarget)
         }
     }
-    this.modrinth {
-        dependsOn(modrinthSyncBody)
-    }
 }
 
 modrinth {
@@ -56,5 +53,4 @@ modrinth {
     gameVersions.set(listOf(minecraftVersion))
     // Add Fabric API as dependency
     dependencies.set(listOf(ModDependency("P7dR8mSH", "required")))
-    syncBodyFrom.set(rootProject.file("README.md").readText())
 }
