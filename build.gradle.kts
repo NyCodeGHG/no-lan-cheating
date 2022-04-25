@@ -2,6 +2,7 @@ import com.modrinth.minotaur.dependencies.ModDependency
 
 plugins {
     id("fabric-loom") version "0.11-SNAPSHOT"
+    id("org.quiltmc.quilt-mappings-on-loom") version "4.0.0"
     id("com.modrinth.minotaur") version "2.1.2"
 }
 
@@ -13,7 +14,7 @@ repositories {
     maven("https://maven.fabricmc.net")
 }
 
-val jvmTarget = 16
+val jvmTarget = 17
 
 java {
     toolchain {
@@ -24,9 +25,12 @@ java {
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
-    mappings(loom.officialMojangMappings())
+    mappings(loom.layered {
+        addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:1.18.2+build.22:v2"))
+        officialMojangMappings()
+    })
     modImplementation("net.fabricmc:fabric-loader:0.14.2")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.46.1+1.17")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.51.1+1.18.2")
 }
 
 tasks {
