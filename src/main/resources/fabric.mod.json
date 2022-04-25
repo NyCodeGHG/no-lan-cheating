@@ -12,7 +12,7 @@
     "issues": "https://github.com/NyCodeGHG/no-lan-cheating/issues",
     "homepage": "https://nycode.dev"
   },
-  "license": "AGPL-3.0",
+  "license": "LGPL-3.0",
   "icon": "assets/no-lan-cheating/icon.png",
   "environment": "client",
   "mixins": [
@@ -20,7 +20,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.14.2",
-    "minecraft": "1.16.x",
+    "minecraft": "1.17.x",
     "fabric": "*"
   }
 }

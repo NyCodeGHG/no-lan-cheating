@@ -13,7 +13,7 @@ repositories {
     maven("https://maven.fabricmc.net")
 }
 
-val jvmTarget = 8
+val jvmTarget = 16
 
 java {
     toolchain {
@@ -26,7 +26,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:0.14.2")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.42.0+1.16")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.46.1+1.17")
 }
 
 tasks {
