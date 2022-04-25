@@ -1,6 +1,8 @@
+import com.modrinth.minotaur.dependencies.ModDependency
+
 plugins {
     id("fabric-loom") version "0.11-SNAPSHOT"
-    id("com.modrinth.minotaur") version "1.2.1"
+    id("com.modrinth.minotaur") version "2.1.2"
 }
 
 group = "de.nycode"
@@ -31,9 +33,7 @@ tasks {
     processResources {
         from(sourceSets.main.get().resources.srcDirs) {
             filesMatching("fabric.mod.json") {
-                expand(
-                    "version" to project.version
-                )
+                expand("version" to project.version)
             }
         }
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -44,13 +44,18 @@ tasks {
             options.release.set(jvmTarget)
         }
     }
-    create<com.modrinth.minotaur.TaskModrinthUpload>("publishModrinth") {
-        token = System.getenv("MODRINTH_TOKEN") ?: findProperty("modrinthToken").toString()
-        projectId = "i5JxLPkx"
-        versionNumber = project.version.toString()
-        uploadFile = remapJar.get().outputs.files.asPath
-        addGameVersion(minecraftVersion)
-        // Add Fabric API as dependency
-        addDependency("J6yPQoBy", com.modrinth.minotaur.request.Dependency.DependencyType.REQUIRED)
+    this.modrinth {
+        dependsOn(modrinthSyncBody)
     }
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN") ?: "")
+    projectId.set("i5JxLPkx")
+    uploadFile.set(tasks.remapJar as Any)
+    gameVersions.set(listOf(minecraftVersion))
+    // Add Fabric API as dependency
+    dependencies.set(listOf(ModDependency("P7dR8mSH", "required")))
+    syncBodyFrom.set(rootProject.file("README.md").readText())
+    debugMode.set(true)
 }
