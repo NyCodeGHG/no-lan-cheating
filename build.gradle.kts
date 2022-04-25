@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "0.7-SNAPSHOT"
+    id("fabric-loom") version "0.11-SNAPSHOT"
     id("com.modrinth.minotaur") version "1.2.1"
 }
 
@@ -22,9 +22,9 @@ java {
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
-    mappings("net.fabricmc:yarn:$yarnMappingsVersion")
-    modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
-    modRuntime("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
+    mappings(loom.officialMojangMappings())
+    modImplementation("net.fabricmc:fabric-loader:0.14.2")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.42.0+1.16")
 }
 
 tasks {
