@@ -1,68 +1,56 @@
 package de.nycode.nolancheating.mixin;
 
-import de.nycode.nolancheating.NoLanCheating;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.OpenToLanScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.ShareToLanScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Collections;
 
-@Mixin(OpenToLanScreen.class)
+@Mixin(ShareToLanScreen.class)
 @Environment(EnvType.CLIENT)
 public abstract class OpenToLanScreenMixin extends Screen {
 
-    @Shadow
-    @Final
-    private static Text ALLOW_COMMANDS_TEXT;
+    private static final Component CHEAT_TEXT = new TranslatableComponent("menu.no-lan-cheating.cheating_tooltip");
 
-    private static final Text CHEAT_TEXT = new TranslatableText("menu.no-lan-cheating.cheating_tooltip");
-
-    protected OpenToLanScreenMixin(Text title) {
+    protected OpenToLanScreenMixin(Component title) {
         super(title);
     }
 
-    @SuppressWarnings("UnresolvedMixinReference")
-    @Redirect(method = "init", at = @At(value = "NEW", target =
-            "(IIIILnet/minecraft/text/Text;" + "Lnet/minecraft" + "/client/gui/widget/ButtonWidget$PressAction;)" +
-                    "Lnet/minecraft/client/gui/widget/ButtonWidget;"))
-    private ButtonWidget replaceCheatsButton(int x, int y, int width, int height, Text message,
-                                             ButtonWidget.PressAction pressAction) {
+    @Redirect(method = "init", at = @At(value = "NEW", target = "net/minecraft/client/gui/components/Button", ordinal = 3))
+    private Button replaceCheatsButton(int x, int y, int width, int height, Component message,
+                                       Button.OnPress pressAction) {
 
-        // Check if we are setting the open to lan button
-        if (message != ALLOW_COMMANDS_TEXT) {
-            return new ButtonWidget(x, y, width, height, message, pressAction);
-        }
-
-        ButtonWidget widget =
-                new ButtonWidget(x, y, width, height, message, pressAction, (button, matrices, mouseX, mouseY) -> {
-                    renderOrderedTooltip(matrices, Collections
-                            .singletonList(CHEAT_TEXT.asOrderedText()), mouseX, mouseY);
-                });
+        Button widget =
+                new Button(x, y, width, height, message, pressAction,
+                        (button, matrices, mouseX, mouseY) -> renderTooltip(matrices,
+                                Collections.singletonList(CHEAT_TEXT.getVisualOrderText()), mouseX, mouseY));
 
         // Check if cheats are enabled in this world.
         widget.active = areCheatsEnabled();
 
-        if (!widget.active && client != null && client.player != null) {
-            client.player.incrementStat(NoLanCheating.ATTEMPTS_TO_CHEAT);
-        }
-
         return widget;
     }
 
+    @Unique
     private boolean areCheatsEnabled() {
-        if (client == null || client.getServer() == null || client.player == null) {
+        if (minecraft == null || minecraft.getSingleplayerServer() == null || minecraft.player == null) {
             return false;
         }
 
-        return client.getServer().getPlayerManager().areCheatsAllowed() || client.player.hasPermissionLevel(2);
+        return minecraft.getSingleplayerServer()
+                .getPlayerList()
+                .isAllowCheatsForAllPlayers() || minecraft.player.hasPermissions(2);
     }
 }
