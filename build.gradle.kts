@@ -1,5 +1,3 @@
-import com.modrinth.minotaur.dependencies.ModDependency
-
 plugins {
     id("fabric-loom") version "0.12-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.1.2"
@@ -22,11 +20,22 @@ java {
     withSourcesJar()
 }
 
+val modIncludeImplementation by configurations.creating
+
+configurations {
+    include {
+        extendsFrom(modIncludeImplementation)
+    }
+    modImplementation {
+        extendsFrom(modIncludeImplementation)
+    }
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:0.14.5")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.42.0+1.16")
+    modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", "0.42.0+1.16"))
 }
 
 tasks {
@@ -51,6 +60,4 @@ modrinth {
     projectId.set("i5JxLPkx")
     uploadFile.set(tasks.remapJar as Any)
     gameVersions.set(listOf(minecraftVersion))
-    // Add Fabric API as dependency
-    dependencies.set(listOf(ModDependency("P7dR8mSH", "required")))
 }
