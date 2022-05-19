@@ -2,8 +2,6 @@
 
 Fabric mod which prevents you from cheating in singleplayer.
 
-**This mod requires [Fabric API](https://modrinth.com/mod/fabric-api).**
-
 **Help Translate this mod over on [Crowdin](https://crowdin.com/project/no-lan-cheating).**
 
 ## Download
