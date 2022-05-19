@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "de.nycode"
-version = ProjectVersion.version
+version = "1.5.0+$minecraftVersion"
 
 repositories {
     mavenCentral()
