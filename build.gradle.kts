@@ -1,7 +1,7 @@
 import com.modrinth.minotaur.dependencies.ModDependency
 
 plugins {
-    id("fabric-loom") version "0.11-SNAPSHOT"
+    id("fabric-loom") version "0.12-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.1.2"
 }
 
@@ -25,7 +25,7 @@ java {
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:0.14.2")
+    modImplementation("net.fabricmc:fabric-loader:0.14.5")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.46.1+1.17")
 }
 
