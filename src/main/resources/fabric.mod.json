@@ -19,8 +19,7 @@
     "no-lan-cheating.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.2",
-    "minecraft": "1.18.x",
-    "fabric": "*"
+    "fabricloader": ">=0.14.5",
+    "minecraft": "1.18.x"
   }
 }
