@@ -8,7 +8,6 @@ import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.ShareToLanScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,11 +20,11 @@ import java.util.Collections;
 @SuppressWarnings("unchecked")
 @Mixin(ShareToLanScreen.class)
 @Environment(EnvType.CLIENT)
-public abstract class OpenToLanScreenMixin extends Screen implements ScreenAccessor {
+public abstract class ShareToLanScreenMixin extends Screen implements ScreenAccessor {
 
-    private static final Component CHEAT_TEXT = new TranslatableComponent("menu.no-lan-cheating.cheating_tooltip");
+    private static final Component CHEAT_TEXT = Component.translatable("menu.no-lan-cheating.cheating_tooltip");
 
-    protected OpenToLanScreenMixin(Component title) {
+    protected ShareToLanScreenMixin(Component title) {
         super(title);
     }
 

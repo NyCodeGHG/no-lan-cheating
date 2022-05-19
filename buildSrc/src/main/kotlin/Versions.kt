@@ -1,1 +1,1 @@
-const val minecraftVersion = "1.18.2"
+const val minecraftVersion = "1.19-pre1"
