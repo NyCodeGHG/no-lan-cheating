@@ -1,26 +1,21 @@
 package de.nycode.nolancheating.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.ShareToLanScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Collections;
 
 @SuppressWarnings("unchecked")
 @Mixin(ShareToLanScreen.class)
 @Environment(EnvType.CLIENT)
-public abstract class ShareToLanScreenMixin extends Screen implements ScreenAccessor {
+public abstract class ShareToLanScreenMixin extends Screen {
 
     private static final Component CHEAT_TEXT = Component.translatable("menu.no-lan-cheating.cheating_tooltip");
 
@@ -33,21 +28,12 @@ public abstract class ShareToLanScreenMixin extends Screen implements ScreenAcce
     private CycleButton replaceCheatsButton(CycleButton.Builder builder, int x, int y, int width, int height, Component optionText, CycleButton.OnValueChange callback) {
 
         final var button = builder
-                .withTooltip(t -> Collections.singletonList(CHEAT_TEXT.getVisualOrderText()))
+                .withTooltip(t -> Tooltip.create(CHEAT_TEXT))
                 .create(x, y, width, height, optionText);
         // Check if cheats are enabled in this world.
         button.active = areCheatsEnabled();
 
         return button;
-    }
-
-    @Inject(method = "render", at = @At(value = "RETURN"))
-    private void renderTooltips(PoseStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        for (Widget widget : getRenderables()) {
-            if (widget instanceof CycleButton button && button.isHoveredOrFocused()) {
-                renderTooltip(matrices, button.getTooltip(), mouseX, mouseY);
-            }
-        }
     }
 
     @Unique
