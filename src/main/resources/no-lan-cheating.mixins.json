@@ -4,8 +4,7 @@
   "package": "de.nycode.nolancheating.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ShareToLanScreenMixin",
-    "ScreenAccessor"
+    "ShareToLanScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

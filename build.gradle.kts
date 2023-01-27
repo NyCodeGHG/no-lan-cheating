@@ -1,10 +1,13 @@
 plugins {
-    id("fabric-loom") version "0.12-SNAPSHOT"
-    id("org.quiltmc.quilt-mappings-on-loom") version "4.2.0"
-    id("com.modrinth.minotaur") version "2.1.2"
+    id("fabric-loom") version "1.1-SNAPSHOT"
+    id("org.quiltmc.quilt-mappings-on-loom") version "4.2.3"
+    id("com.modrinth.minotaur") version "2.6.0"
 }
 
+val minecraftVersion = "1.19.3"
+
 group = "de.nycode"
+
 version = "1.5.0+$minecraftVersion"
 
 repositories {
@@ -15,39 +18,31 @@ repositories {
 val jvmTarget = 17
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(jvmTarget))
-    }
+    toolchain { languageVersion.set(JavaLanguageVersion.of(jvmTarget)) }
     withSourcesJar()
 }
 
 val modIncludeImplementation by configurations.creating
 
 configurations {
-    include {
-        extendsFrom(modIncludeImplementation)
-    }
-    modImplementation {
-        extendsFrom(modIncludeImplementation)
-    }
+    include { extendsFrom(modIncludeImplementation) }
+    modImplementation { extendsFrom(modIncludeImplementation) }
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.layered {
-        addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:1.19-pre1+build.1:v2"))
+        mappings("org.quiltmc:quilt-mappings:1.19.3+build.20:intermediary-v2")
         officialMojangMappings()
     })
-    modImplementation("net.fabricmc:fabric-loader:0.14.5")
-    modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", "0.52.4+1.19"))
+    modImplementation("net.fabricmc:fabric-loader:0.14.13")
+    modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", "0.73.0+1.19.3"))
 }
 
 tasks {
     processResources {
         from(sourceSets.main.get().resources.srcDirs) {
-            filesMatching("fabric.mod.json") {
-                expand("version" to project.version)
-            }
+            filesMatching("fabric.mod.json") { expand("version" to project.version) }
         }
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
