@@ -1,6 +1,6 @@
 plugins {
     id("fabric-loom") version "1.2-SNAPSHOT"
-    id("com.modrinth.minotaur") version "2.8.1"
+    id("com.modrinth.minotaur") version "2.8.10"
 }
 
 val minecraftVersion = "1.20.3"
