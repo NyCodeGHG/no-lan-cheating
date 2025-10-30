@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.2-SNAPSHOT"
+    id("fabric-loom") version "1.12-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.8.1"
 }
 
@@ -15,10 +15,8 @@ repositories {
     maven("https://maven.parchmentmc.org/")
 }
 
-val jvmTarget = 17
-
 java {
-    toolchain { languageVersion.set(JavaLanguageVersion.of(jvmTarget)) }
+    toolchain { languageVersion.set(JavaLanguageVersion.of(21)) }
     withSourcesJar()
 }
 
@@ -48,9 +46,7 @@ tasks {
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        if (jvmTarget >= 9) {
-            options.release.set(jvmTarget)
-        }
+        options.release.set(17)
     }
 }
 
