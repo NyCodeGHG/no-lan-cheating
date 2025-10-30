@@ -44,6 +44,6 @@ public abstract class ShareToLanScreenMixin extends Screen {
 
         return minecraft.getSingleplayerServer()
                 .getPlayerList()
-                .isAllowCheatsForAllPlayers() || minecraft.player.hasPermissions(2);
+                .isAllowCommandsForAllPlayers() || minecraft.player.hasPermissions(2);
     }
 }
