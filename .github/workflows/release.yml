@@ -6,17 +6,6 @@ on:
       - created
 
 jobs:
-  gradleValidation:
-    name: Gradle Wrapper
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Fetch Sources
-        uses: actions/checkout@v3
-
-      - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1
-
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -24,7 +13,10 @@ jobs:
 
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v3
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -33,7 +25,7 @@ jobs:
           java-version: 21
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build with Gradle
         run: ./gradlew build
