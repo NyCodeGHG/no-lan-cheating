@@ -3,7 +3,7 @@ plugins {
     id("com.modrinth.minotaur") version "2.8.1"
 }
 
-val minecraftVersion = "1.20.2"
+val minecraftVersion = "1.20.3"
 
 group = "de.nycode"
 
@@ -32,11 +32,11 @@ configurations {
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.layered {
-        parchment("org.parchmentmc.data:parchment-1.20.2:2023.12.10@zip")
+        parchment("org.parchmentmc.data:parchment-1.20.3:2023.12.31@zip")
         officialMojangMappings()
     })
     modImplementation("net.fabricmc:fabric-loader:0.14.21")
-    modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", "0.91.6+1.20.2"))
+    modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", "0.91.1+1.20.3"))
 }
 
 tasks {
